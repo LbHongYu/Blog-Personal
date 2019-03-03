@@ -15,7 +15,7 @@ Promise，
 PS：关于tab新版的标识这里的说明做了处理。
 
 示例图：
- ![Philadelphia's Magic Gardens. This place was so cool!](./tab.png "Philadelphia's Magic Gardens")
+ ![tab.png](../picture//DailyNote/当异步加载遇到闭包和promise/tab.png "tab")
 
 思考点：
 1. 不定长度数组；
