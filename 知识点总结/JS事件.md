@@ -91,22 +91,21 @@ detachEvent用于解绑使用 attachEvent 绑定的事件处理程序。与DOM2�
 
 还有一个需要注意的区别，使用IE事件处理程序时，事件处理程序会在全局作用域中运行，因此 this 等于window。DOM0 和DOM2 事件处理程序会在其所属的作用域执行。其回调函数中的this指向该元素。
 
-	``` 
+``` 
     <div id="app">
 	  	<div id="child-1"></div>
-	  </div>
-    ```
+	</div>
+```
 
-    ```
-	  <script type="text/javascript">
-	  	var child1 = document.getElementById("child-1");
+```
+    var child1 = document.getElementById("child-1");
 
-	  	child1.attachEvent('onclick', function(){
-	  		console.log("IE");
-      	    console.log(this); 
-	  	})
-     ```
-![IE-this](./IE-this.png)
+    child1.attachEvent('onclick', function(){
+        console.log("IE");
+        console.log(this); 
+    })
+```
+![IE-this](../picture/知识点总结/JS事件/IE-this.png)
 
 在DOM节点上触发一个事件时会产生一个事件对象，这个对象包含了事件类型，发生该事件的元素及其其他与事件相关的信息。例如，鼠标事件中，事件对象就会包含鼠标按键信息和鼠标位置等等，按键事件中，事件对象会包含与按下的键有关信息。所有的浏览器都支持这个对象，但是方式有所不同。
 
