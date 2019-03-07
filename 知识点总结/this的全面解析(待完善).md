@@ -1,3 +1,5 @@
+### this的全面解析
+
 函数可通过一下四种方式进行调用：
 1. 函数调用
 2. 方法调用
@@ -82,17 +84,19 @@ var person = new Person("Willion", 24); //Person {name: "Willion", age: 24}
 //模拟实现 new 操作
 使用new来调用函数，或者说发生构造函数调用时，会自动执行下面的操作。
 
-1、创建（或者说构造）一个新对象。
-2、这个新对象会被执行[[Prototype]]连接。
-3、这个新对象会绑定到函数调用的this。
-4、如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象。
+1. 创建（或者说构造）一个新对象。
+2. 这个新对象会被执行[[Prototype]]连接。
+3. 这个新对象会绑定到函数调用的this。
+4. 如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象。
 
 function selfConstructor(fn){
 	//创建一个对象
-	var obj = {};
+	//var obj = {};
 
 	//[[Prototype]]连接
-	obj.__proto__ = fn.prototype;
+	//obj.__proto__ = fn.prototype;
+
+	var obj = Object.create(fn.prototype);
 
 	//往对象中添加属性
 	let newObj = fn.apply(obj, Array.prototype.slice.call(arguments).slice(1,arguments.length));
@@ -100,6 +104,50 @@ function selfConstructor(fn){
 	//返回这个对象
 	return newObj instanceof Object ? newObj : obj;
 }
++ 在箭头函数中的this
+	* 箭头函数中的this指向的是外层作用域
+	* 将箭头函数不绑定this，无法通过call，apply，bind直接修改this指向。
+	* 改变箭头函数所处的作用域中的this可以改变箭头中的this（比如通过call,apply,bind等方式间接修改。）
+	* 箭头函数的this取值和变量标识符取值是一样的，沿着作用域链逐级查找。
+
+```
+	var name = 'windowPerson';
+
+	function Person (name) {
+		this.name = name;
+		this.getName_1 = function () {
+			console.log(this.name)
+		}
+		this.getName_2 = () => console.log(this.name)
+		this.getName_3 = function () {
+			return function () {
+			   console.log(this.name)
+			}
+		}
+		this.getName_4 = function inZner4() {
+			return () => console.log(this.name)
+		}
+	}
+
+	var personA = new Person('personA');
+	var personB = new Person('personB');
+
+	personA.getName_1();              // "personA"
+	personA.getName_1.call(personB);  // "personB"
+	//getName_2中的console.log(this.name)就相当于在Person函数中执行consol.log(this.name)
+	personA.getName_2();              //'personA'
+	personA.getName_2.call(personB);  //'personA'
+
+	personA.getName_3()();            //'windowPerson'
+	personA.getName_3().call(personB);// "personB"
+	personA.getName_3.call(personB)();//'windowPerson'
+
+	//personA.getName_4()的上级作用域是inner4函数的作用域，inner4中的this指向PersonA实例。
+	personA.getName_4()();            //'personA'
+	personA.getName_4().call(personB);//'personA'
+	personA.getName_4.call(personB)(); // "personB"
+
+```
 
 + 最后补充一点， 在浏览器事件中，IE事件处理程序(IE8-)中 this 指向的 是window, DOM事件处理程序中this指向的是绑定的DOM元素。
 
