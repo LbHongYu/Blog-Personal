@@ -56,9 +56,10 @@ var student1 = new Student1("Will"),
     student2 = new Student2(12);
 
 Object.assign(student1, student2);
+console.log(student1)
 ```
 
-![assign-not-prototype](../picture/知识点总结/深浅拷贝/assign-not-prototype.png)
+![without-prototype](../picture/知识点总结/Object.assign原理与模拟实现/without-prototype.png)
 
 所以我们在模拟的时候，对于通过Object.create(null)创建的对象不能直接使用obj.hasOwnProperty()来判断一个属性属不属于原型，hasOwnProperty方法来自于Object.prototype。
 这种对象没有原型，只是一个纯对象，自然也没有办法拿到hasOwnProperty方法。
