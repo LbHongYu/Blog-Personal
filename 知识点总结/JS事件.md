@@ -33,7 +33,7 @@ eg: ele.onclick = null
 
 #### DOM2级事件处理程序
 
-*IE9+,Safari,Chrome,Opera 和 Firefox 都支持捕获 DOM2 级事件处理程序。
+<b>IE9+,Safari,Chrome,Opera 和 Firefox 都支持捕获 DOM2 级事件处理程序。</b>
 
 绑定事件：element.addEventListener(type, handler, useCapture)
 移除事件：element.removeEventListener(type, handler, useCapture)
