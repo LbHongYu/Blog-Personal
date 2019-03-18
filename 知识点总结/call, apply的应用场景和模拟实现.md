@@ -48,7 +48,7 @@ function fn(arg1, arg2){
 
 fn(1, 2);
 ```
-![test-arguments](../picture/知识点总结/call-apply的应用场景和模拟实现/test-arguments.png)
+![test-arguments](../image/知识点总结/call-apply的应用场景和模拟实现/test-arguments.png)
 
 
 我们来对arguments转换后，得到的新的数组就可以调用 Array.prototype 上的方法了：

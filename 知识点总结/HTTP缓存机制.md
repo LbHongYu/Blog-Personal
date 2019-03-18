@@ -67,4 +67,4 @@ Etag主要为了解决 Last-Modified 无法解决的一些问题：
   * 文件也许会周期性的更改，但是他的内容并不改变，不希望客户端重新get；
   * 某些服务器不能精确的得到文件的最后修改时间。
 
-  ![http-cache](../picture/知识点总结/HTTP/cache.png)
+  ![http-cache](../image/知识点总结/HTTP/cache.png)
