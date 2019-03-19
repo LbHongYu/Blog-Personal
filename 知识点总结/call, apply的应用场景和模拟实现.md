@@ -165,19 +165,37 @@ Function.prototype._call = function(context){
 
     if(arguments.length > 1){
         var args = [];
-        for(var i = 1, len = arguments.length; i < len; i++){
-            args.push(arguments[i]);
+        for(var i = 1, len = arguments.length; i < len; i++) {
+            args.push('arguments[' + i + ']');
         }
-        result = eval('context.fn('+ args.join(",") + ')');
+        console.log('context.fn(' + args +')');
+        var result = eval('context.fn(' + args +')');
     }else{
-        result = eval('context.fn('+ args.join(",") + ')');
+        result = context.fn();
     }
     
     delete context.fn;
     return result;
 }
 ```
+```
+Function.prototype._call = function(context){
+    var result = null;
+    context = context ? context :  window;
+    context.fn = this;
 
+    if(arguments.length > 1){
+        var args = Array.prototype.slice.call(arguments,1);
+        result = context.fn(...args);
+    }else{
+        result = context.fn();
+    }
+
+    delete context.fn
+    return result;
+
+}
+```
 #### 模拟实现apply
 1. fn.apply();
 2. fn.apply(context);
@@ -194,13 +212,30 @@ Function.prototype._apply = function(context, arr){
     if(Array.isArray(arr)){
         var args = [];
         for(var i =0, len = arr.length; i < len; i++){
-            args.push(arr[i]);            
+            args.push('arr[' + i + ']');            
         }
-        result = eval('context.fn('+ args.join(",") + ')');
+        result = eval('context.fn('+ args + ')');
     }else{
         result = context.fn();
     }
     
+    delete context.fn;
+    return result;
+}
+```
+
+```
+Function.prototype._apply = function(context, arr){
+    var result = null;
+    context = !!context ? context : window;
+    context.fn = this;
+
+    if(Array.isArray(arr)){
+        result = context.fn(...arr);
+    }else{        
+        result = context.fn();
+    }
+
     delete context.fn;
     return result;
 }

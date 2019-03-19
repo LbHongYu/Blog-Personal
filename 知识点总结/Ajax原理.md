@@ -1,8 +1,14 @@
 ## Ajax 原理
+1. 兼容的创建一个 XMLHTttpRequest 实例
+2. XMLHTttpRequest 实例上的方法和属性
+3. readystatechange 事件中 readyState 的变化
+4. FormData 对象
+5. timeout 属性的使用
+6. progress 进度事件
+7. abort 事件
+Ajax 是 Asynchronous JavaScript + XML 的简写，是一项无须加载页面就能够向服务器请求额外数据的技术。Ajax 的核心技术是 XMLHttpRequest 对象（简称 XML），XHR 提供向服务器发送请求和解析服务器响应的借口，能够以异步方式从服务器取得数据，替代了以刷新页面的方式。用户取得数据之后，再通过DOM操作将数据插入页面。
 
-Ajax 是 Asynchronous JavaScript + XML 的简写，是能够像服务器请求额外数据而无须加载页面的技术。Ajax的核心技术是 XMLHttpRequest 对象（简称 XML），XHR 提供向服务器发送请求和解析服务器响应的借口，能够以异步方式从服务器取得数据，替代了以刷新页面的方式。用户取得数据之后，再通过DOM操作将数据插入页面。
-
-Ajax 的名字中包含了 "XML" 成分，但是Ajax通信技术与数据格式无关，从服务器返回的数据也不一定是XML数据。
+PS: Ajax 的名字中包含了 "XML" 成分，但是Ajax通信技术与数据格式无关，从服务器返回的数据也不一定是XML数据。
 
 我们看看 如何创建一个XHR对象：
 ```
@@ -120,17 +126,17 @@ xhr.ontimeout = function(){
 	定义了与客户端服务器通信有关的事件。
 
 * ```loadstart``` 接收到响应数据的第一个字节时触发。
-* ```process``` 接收响应期间被一次或者多次触发
+* ```progress``` 接收响应期间被一次或者多次触发
 * ```error``` 请求发生错误时错误
 * ```abort``` 调用abort方法而终止连接时触发
 * ```load``` 接收完整的响应数据时触发,
 * ```loadend``` 在通信完成或者触发error、abort 或 load 事件后触发。
 
-	loadstart ---> process ---> error/abort/load ---> loadend
+	loadstart ---> progress ---> error/abort/load ---> loadend
 
  1. load 事件： 可以使用这个事件代替 onreadystatechange，且不用判断readyState
 
-	load 事件处理程序会接收到一个event对象，event.target 指向XHR实例，但是也不要通过这种方式回去xhr实例对象，并非所有浏览器都提供了这个event对象。
+	load 事件处理程序会接收到一个 event 对象，event.target 指向 XHR 实例，但是也不要通过这种方式获取 xhr 实例对象，并非所有浏览器都提供了这个 event 对象。
 
 ```	
  function getData(xhr){
@@ -147,11 +153,11 @@ xhr.ontimeout = function(){
 
 2. progress 事件
 
-process 接收响应期间周期性触发，onprogress 事件处理程序会接收一个event对象，event.target指向XHR对象,还有三个表示数据返回进度的信息。onprogress最好是在open方法之前添加。
+progress 是一个接收响应期间周期性触发的事件，onprogress 事件处理程序会接收一个 event 对象，event.target 指向 XHR 对象,还有三个表示数据返回进度的信息。progress 事件处理程序最好是在 open 方法之前添加。
 
 * lengthComputable 表示进度可用的布尔值
 * position 已经接受的字节数
-* totalSize 根据Content-length响应头部确定的预期字节数
+* totalSize 根据 Content-length 响应头部确定的预期字节数
 
 
 #### 跨源资源共享
