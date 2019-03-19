@@ -1,7 +1,5 @@
 #### 缓存
 
-https://mp.weixin.qq.com/s/d2zeGhUptGUGJpB5xHQbOA
-
 ##### Pragma  （HTTP/1.0）
 
 Pragma 是 HTTP/1.0 标准中定义的一个header属性，请求中包含 Pragma 的效果跟在头信息中定义 Cache-Control: no-cache 相同，但是HTTP的响应头不支持这个属性，所以它不能拿来完全替代HTTP/1.1中定义的Cache-control头。通常定义Pragma以向后兼容基于HTTP/1.0的客户端。
