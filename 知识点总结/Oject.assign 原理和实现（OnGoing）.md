@@ -1,8 +1,8 @@
-### Oject.create 原理和实现
+### Oject.assign 原理和实现
 
-Object.create，语法：```Object.create(target, ...source)```，用于将一个或者多个源对象的所有可枚举属性的值复制到目标对象，同时返回目标对象。
+Object.assign ，语法：```Object.assign(target, ...source)```，用于将一个或者多个源对象的所有可枚举属性的值复制到目标对象，同时返回目标对象。
 
-使用Object的时候需要几点需要注意：
+使用 Object.assign 的时候需要几点需要注意：
 1. 原生的Object.assign 是不可枚举的
 
 2. 当只有一个参数的时候：
@@ -12,7 +12,7 @@ Object.create，语法：```Object.create(target, ...source)```，用于将一�
 
 3. 当有多个参数的时候，
     + 如果包含null，undefined，布尔值，数字，Symbol，这些参数会被忽略。
-    + 如果有一个参数为字符串，则它后面的参数不能包含 ``` "0" ```这个参数。因为 Oject(string) 的 writable 为 false.
+    + 如果有一个参数为字符串，则它后面的参数中的属性不能包含 ``` "0" ```这个参数。因为 Oject(string) 的 writable 为 false.
     ```
         var obj = Object('abc'); 
 

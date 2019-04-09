@@ -109,8 +109,8 @@ detachEvent用于解绑使用 attachEvent 绑定的事件处理程序。与DOM2�
 
 在DOM节点上触发一个事件时会产生一个事件对象，这个对象包含了事件类型，发生该事件的元素及其其他与事件相关的信息。例如，鼠标事件中，事件对象就会包含鼠标按键信息和鼠标位置等等，按键事件中，事件对象会包含与按下的键有关信息。所有的浏览器都支持这个对象，但是方式有所不同。
 
-#### DOM中的事件对象
-兼容DOM的浏览器会把这个event对象传入事件处理程序中
+#### DOM 事件对象
+兼容DOM事件的浏览器会把这个event对象传入事件处理程序中
 ```
 <div id="app">
     <div id="child-1"></div>
@@ -139,12 +139,12 @@ currentTarget | Element | 事件被绑定的 DOM 元素
 target | Element | 事件触发的 DOM 元素
 detail  |Integer | 发生鼠标事件时，返回一个表明鼠标按键的数字
 preventDefault()| Function | 取消事件的默认行为，例如在按键事件中禁止输入内容
-stopImmediateProgation() | Function | 取消事件的进一步捕获或冒泡，同时阻止任何事件处理程序被调用
-stopImmediateProgation() | Function | 取消事件的进一步捕获或冒泡
+stopImmediatePropagation() | Function | 取消事件的进一步捕获或冒泡，同时阻止任何事件处理程序被调用
+stopPropagation() | Function | 取消事件的进一步捕获或冒泡
 
 #### IE中的事件对象
 DOM0: event对象作为 window 对象的一个属性存在
-DOM2: 使用attach()添加的事件处理程序会有一个 event 对象作为参数被传入回调函数中，也可以通过window.event获取。
+DOM2: 使用 attachEvent()添加的事件处理程序会有一个 event 对象作为参数被传入回调函数中，也可以通过window.event获取。
 
 ```
 var child1 = document.getElementById("child-1");
