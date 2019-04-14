@@ -1,6 +1,6 @@
 ## Ajax 原理
 1. 兼容的创建一个 XMLHTttpRequest 实例
-2. XMLHTttpRequest 实例上的方法和属性
+2. XMLHttpRequest 实例上的方法和属性
 3. readystatechange 事件中 readyState 的变化
 4. FormData 对象
 5. timeout 属性的使用
