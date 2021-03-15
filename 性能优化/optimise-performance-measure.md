@@ -1,8 +1,33 @@
 ## 性能优化手段
 
-### 开启服务器的缓存、压缩、HTTP2
-* Cache-Control / Max-age、Last-Modified/If-Modified-Since 与 ETag/If-None-Match
+### 资源请求
+* 开启缓存
+  ```
+  Cache-Control/Max-age
+  Last-Modified/If-Modified-Since
+  ETag/If-None-Match
+  ```
+* 开启 dns-prefetch
+  ```
+  // 方式一：
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+
+  // 方式二：
+  Link: <https://fonts.gstatic.com/>; rel=dns-prefetch
+  ```
+  最佳实践
+  在跨域源使用：dns-prefetch 仅对跨域域上的 DNS查找有效，因此请避免使用它来指向您的站点或域。
+  与 preconnect 配用：将 dns-prefetch 与 preconnect(预连接)提示配对。尽管 dns-prefetch 仅执行 DNS查找，但 preconnect 会建立与服务器的连接。如果站点是通过HTTPS服务的，则此过程包括DNS解析，建立TCP连接以及执行TLS握手。将两者结合起来可提供进一步减少跨域请求的感知延迟的机会。preconnect 提示最好仅用于最关键的连接。
+  ```
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+  ```
+* 开启 preload: 本页面使用的资源使用 preload，跨域资源要加上 crossorigin 属性否则会请求两次（请求优先级）。
+
+* 开启 prefetch: 下一个页面要使用的资源使用 prefetch
+
 * 开启 HTTP2
+
 ### 资源加载的优化
 * 首页尽量减少不必要的资源加载
 * 异步加载路由组件
@@ -10,16 +35,18 @@
 * 以“内容hash”命名打包的项目文件
 * 使用 polyfill 服务，根据不同浏览器动态引入不同的polyfill
 * 压缩图片、使用雪碧图、图片懒加载、小图片处理成base64、使用icon替代小图片
+
 ### 首屏优化：
 * 尽量减少不必要的资源加载 （工具、CSS等等）
 * 内敛样式
 * loading 提示、Skeleton
 * 使用本地缓存将可缓存的首页数据缓存起来
+
 ### 代码：
 * 页面中暂时不用的功能不加载
 * 防抖节流
 * 缓存不会变化的数据
-* 使用 keep-alive(Vue)
+* 使用 keep-alive (Vue)
 * 尽量避免重排重绘
 * 移除没用的CSS
 
