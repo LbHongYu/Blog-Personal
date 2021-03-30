@@ -27,6 +27,8 @@
 * 开启 prefetch: 下一个页面要使用的资源使用 prefetch
 
 * 开启 HTTP2
+* 将部分固定内容分包到CDN
+* 启用 Brotli 或 Zopfli 压缩（至少有 Gzip 压缩）
 
 ### 资源加载的优化
 * 首页尽量减少不必要的资源加载
@@ -48,7 +50,23 @@
 * 缓存不会变化的数据
 * 使用 keep-alive (Vue)
 * 尽量避免重排重绘
-* 移除没用的CSS
+* 优化 CSS
+  * 分离 web 字体，并以异步方式加载它们（或切换到系统字体）
+  * 使用 service workers 来缓存
+  * 使用 CSS containment 隔离昂贵的组件
+    CSS Containment 主要是通过允许开发者将某些子树从页面中独立出来，从而提高页面的性能。如果浏览器知道页面中的某部分是独立的，就能够优化渲染并获得性能提升。
+    ``` CSS
+      article {
+        contain: content;
+      }
+    ```
+  * 使用 CSS 的 will-change 通知浏览器哪个元素的哪个属性将要发生变化
+  * 使用GPU 加速渲染
+    ```
+      3D 或者 CSS transform
+      <video> 和 <canvas> 标签
+      CSS filters
+    ```
 
 ### webpack 打包优化
 * 压缩 HTML\CSS\JS:
