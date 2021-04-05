@@ -1,4 +1,4 @@
-##  Render 函数的生成
+##  生成 Render 函数
 
 调用Vue 构造函数，做了那些事情：
 1. 在 Vue.prorotype 上定义方法(准备工作、event 相关、实例的更新销毁、创建Vnode)
