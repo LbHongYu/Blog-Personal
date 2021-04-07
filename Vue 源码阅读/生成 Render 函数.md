@@ -5,7 +5,6 @@
 2. 定义与platforms 相关的方法、是否带编译器
 3. `Vue.prototype._init`、`compile ？`、`$mount(mountComponent)`、`_render`、`_update`、`__patch__`
 
-
 render 函数是 template 经过编译从templet 到 ast 再到 render 函数。render 函数再用于生成 VNode。
 
 步骤3里的  `compile`， 如果 option 中的是 render 函数而不是 template，就需要再编译了。平时的开发中，使用的是 Vue 单组件文件，经过 Vue-loader 处理之后就是一个包含组件信息的对象，其中的template 已经被编译称 render 函数。
