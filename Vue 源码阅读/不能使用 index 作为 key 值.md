@@ -1,4 +1,4 @@
-### 热更新原理
+### 不能使用 index 作为 key 值
 
 key 在对比 VNode 差异过程中起到重要作用，Vue 在比较 VNode 时执行的是一个叫 `sameNode` 的方法，
 在这个方法中，通过比较两个节点的key ，tag, isComment 属性值，是否都有 data 属性，是否是同类型的input。对于异步组件，则判断 asyncFactory 是否相同。
