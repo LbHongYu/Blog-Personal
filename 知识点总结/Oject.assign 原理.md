@@ -1,4 +1,4 @@
-### Oject.assign 原理和实现
+### Oject.assign 原理
 
 Object.assign ，语法：```Object.assign(target, ...source)```，用于将一个或者多个源对象的所有可枚举属性的值复制到目标对象，同时返回目标对象。
 
@@ -14,26 +14,26 @@ Object.assign ，语法：```Object.assign(target, ...source)```，用于将一�
     + 如果包含null，undefined，布尔值，数字，Symbol，这些参数会被忽略。
     + 如果有一个参数为字符串，则它后面的参数中的属性不能包含 ``` "0" ```这个参数。因为 Oject(string) 的 writable 为 false.
     ```
-        var obj = Object('abc'); 
+        var obj = Object('abc');
 
         Object.getOwnPropertyDescriptor(obj, '0');
         /* {
-            value: "a", 
-            writable: false, 
-            enumerable: true, 
+            value: "a",
+            writable: false,
+            enumerable: true,
             configurable: false
         } */
-        
-    ``` 
+
+    ```
     但是不是所有情况修改writable:false的属性会报错。
-    var obj = Object('abc'); 
+    var obj = Object('abc');
     obj[0] = "N";
     console.log(obj);// {0: "a", 1: "b", 2: "c"}
 
     在严格模式下会出现报错：
     ```
-    "use strict"    
-    var obj = Object('abc'); 
+    "use strict"
+    var obj = Object('abc');
     obj[0] = "N";   // Uncaught TypeError: Cannot assign to read only property '0' of object '[object String]'
     console.log(obj);// "abc"
     ```
@@ -43,12 +43,12 @@ Object.assign ，语法：```Object.assign(target, ...source)```，用于将一�
 4. assign不会复制原型上的对象
 ```
 function Student1(name){
-	this.name = name;	
+	this.name = name;
 }
 Student1.prototype.prototyeName =  "prototyeName";
 
 function Student2(age){
-	this.age = age;	
+	this.age = age;
 }
 Student2.prototype.prototyeAge =  18;
 
